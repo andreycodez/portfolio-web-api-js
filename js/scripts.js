@@ -23,10 +23,11 @@ const getUser = (number) => {
 console.log(listUsers)
 
 function generateUsersList(data) {
-    const parentHolder = document.getElementById('usersListId');
+    const parentHolder = document.getElementById('userListId');
+    console.log(parentHolder);
     for (const man of data) {
         const nameHolder = document.createElement('p');
-        nameHolder.innerHTML = man[0];
+        nameHolder.innerHTML = man;
         const holder = document.createElement('div');
         holder.setAttribute('class', 'user');
         holder.appendChild(nameHolder);
