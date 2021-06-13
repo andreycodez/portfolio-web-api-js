@@ -4,15 +4,17 @@
   padding: 0; }
 
 .loader {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   background: #E5EFF1;
-  display: none;
+  display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+  z-index: 10; }
   .loader .loader-content {
     display: flex;
     flex-direction: column;
@@ -25,26 +27,75 @@
       height: 100px;
       margin: 40px auto 0 auto; }
 
-.isVisible-flex {
-  display: flex; }
+.header-container {
+  background: #666666; }
+  .header-container .header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-in-out; }
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 880px; }
+
+h1 {
+  color: #FFFFFF; }
+
+.filter {
+  margin: 30px 10px 0 10px;
+  border-bottom: 1px solid #E2E2E2;
+  padding-bottom: 20px; }
+  .filter .filter-list {
+    list-style: none;
+    display: flex; }
+    .filter .filter-list .filter-item {
+      margin-right: 15px;
+      padding: 6px 10px;
+      border-radius: 5px; }
+      .filter .filter-list .filter-item:hover {
+        background: #495FEF;
+        color: #FFFFFF; }
+      .filter .filter-list .filter-item span {
+        font-size: 10px;
+        font-weight: bold; }
+    .filter .filter-list .active {
+      background: #495FEF;
+      color: #FFFFFF; }
 
 .usersList {
   display: flex;
-  max-width: 880px;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
   justify-content: center; }
   .usersList .user {
     border: 1px solid #CCCCCC;
     border-radius: 5px;
     max-width: 200px;
-    height: 400px;
     margin: 10px;
     overflow: hidden; }
     .usersList .user .user-info {
-      padding: 20px; }
-      .usersList .user .user-info img {
-        width: 200px;
-        object-fit: cover; }
+      padding: 20px;
+      color: #716B6C; }
+      .usersList .user .user-info .name {
+        font-size: 19px;
+        text-transform: uppercase;
+        color: #121212;
+        font-weight: bold;
+        margin-bottom: 20px; }
+    .usersList .user .image-holder {
+      position: relative;
+      height: 200px;
+      width: 200px; }
+      .usersList .user .image-holder img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%; }
 
 /*# sourceMappingURL=styles.css.map */

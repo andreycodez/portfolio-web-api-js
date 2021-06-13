@@ -9,18 +9,31 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="loaderLayer" class="loader isVisible-flex">
+    <div id="loaderLayer" class="loader">
         <div class="loader-content">
             <p>Loading Random People from API</p>
             <img src="images/giphy.gif" alt="">
         </div>
 
     </div>
-    <h1>Random People</h1>
-    <div id="userListId" class="usersList">
-
+    <div class="header-container">
+        <div id="header" class="header">
+            <h1>Random Robos</h1>
+        </div>
     </div>
+    <div class="content-wrapper">
+        <div class="filter">
+            <ul class="filter-list">
+                <li class="filter-item active">All <span>11</span></li>
+                <li class="filter-item">Male <span>5</span></li>
+                <li class="filter-item">Female <span>23</span></li>
+                <li class="filter-item">Uncategorized <span>6</span></li>
+            </ul>
+        </div>
+        <div id="userListId" class="usersList">
 
+        </div>
+    </div>
     <script type="text/javascript" src="js/scripts.js"></script>
 </body>
 </html>
