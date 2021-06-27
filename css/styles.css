@@ -3,6 +3,10 @@
   margin: 0;
   padding: 0; }
 
+body {
+  font-family: sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue;
+  font-size: 14px; }
+
 .loader {
   position: fixed;
   top: 0;
@@ -34,7 +38,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.5s ease-in-out; }
+    transition: all 0.8s ease-in-out; }
 
 .content-wrapper {
   display: flex;
@@ -55,16 +59,23 @@ h1 {
     .filter .filter-list .filter-item {
       margin-right: 15px;
       padding: 6px 10px;
-      border-radius: 5px; }
+      border-radius: 5px;
+      font-size: 12px;
+      text-transform: uppercase;
+      cursor: pointer; }
       .filter .filter-list .filter-item:hover {
         background: #495FEF;
         color: #FFFFFF; }
+        .filter .filter-list .filter-item:hover span {
+          color: #3EC7EE; }
       .filter .filter-list .filter-item span {
         font-size: 10px;
         font-weight: bold; }
     .filter .filter-list .active {
       background: #495FEF;
       color: #FFFFFF; }
+      .filter .filter-list .active span {
+        color: #3EC7EE; }
 
 .usersList {
   display: flex;
@@ -72,7 +83,7 @@ h1 {
   margin: 20px auto 0 auto;
   justify-content: center; }
   .usersList .user {
-    border: 1px solid #CCCCCC;
+    border: 1px solid #e9e9e9;
     border-radius: 5px;
     max-width: 200px;
     margin: 10px;
@@ -80,12 +91,20 @@ h1 {
     .usersList .user .user-info {
       padding: 20px;
       color: #716B6C; }
+      .usersList .user .user-info p {
+        line-height: 24px; }
       .usersList .user .user-info .name {
-        font-size: 19px;
+        font-size: 14px;
         text-transform: uppercase;
         color: #121212;
         font-weight: bold;
-        margin-bottom: 20px; }
+        height: 50px;
+        max-height: 50px;
+        max-width: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
     .usersList .user .image-holder {
       position: relative;
       height: 200px;
