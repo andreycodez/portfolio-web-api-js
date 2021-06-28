@@ -1,5 +1,4 @@
-// Getting Random Users from API
-let dataFromApi = { robos: {} };
+let dataFromApi = { robos: {}, plans:{} };
 const usersCount = 30;
 let arrPromise = [];
 
@@ -7,18 +6,19 @@ for (let i = 0; i < usersCount; i++) {
     arrPromise[i] = fetch('https://random-data-api.com/api/users/random_user');
 }
 
-
 Promise
     .all(arrPromise)
     .then((response) => {
-        return Promise.all(response.map((promiseItem => promiseItem.json())))
+        return Promise.all(response.map((item => item.json())))
     })
     .then((data) => {
-        console.log(data)
         data.map((item) => {
             dataFromApi.robos[item.id] = item;
+            dataFromApi.robos[item.id].status = 'active';
         })
+        dataFromApi.setPlans();
         generateUsersList(dataFromApi);
+        generateFilterList(dataFromApi);
         const loader = document.getElementById('loaderLayer');
         loader.style.setProperty('visibility', 'hidden')
         loader.style.setProperty('opacity', '0')
