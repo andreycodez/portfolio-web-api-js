@@ -32,13 +32,22 @@ body {
       margin: 40px auto 0 auto; }
 
 .header-container {
-  background: #666666; }
+  background: #666666;
+  position: relative; }
   .header-container .header {
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.8s ease-in-out; }
+  .header-container h1 {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
 
 .content-wrapper {
   display: flex;
@@ -49,16 +58,16 @@ body {
 h1 {
   color: #FFFFFF; }
 
-.filter {
+.options {
   margin: 30px 10px 0 10px;
   border-bottom: 1px solid #E2E2E2;
   padding-bottom: 20px; }
-  .filter .filter-list {
+  .options .filter-list {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
     max-width: 600px; }
-    .filter .filter-list .filter-item {
+    .options .filter-list .filter-item {
       margin-top: 10px;
       margin-right: 15px;
       padding: 6px 10px;
@@ -66,18 +75,18 @@ h1 {
       font-size: 12px;
       text-transform: uppercase;
       cursor: pointer; }
-      .filter .filter-list .filter-item:hover {
+      .options .filter-list .filter-item:hover {
         background: #495FEF;
         color: #FFFFFF; }
-        .filter .filter-list .filter-item:hover span {
+        .options .filter-list .filter-item:hover span {
           color: #3EC7EE; }
-      .filter .filter-list .filter-item span {
+      .options .filter-list .filter-item span {
         font-size: 10px;
         font-weight: bold; }
-    .filter .filter-list .active {
+    .options .filter-list .active {
       background: #495FEF;
       color: #FFFFFF; }
-      .filter .filter-list .active span {
+      .options .filter-list .active span {
         color: #3EC7EE; }
 
 .usersList {

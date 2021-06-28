@@ -2,6 +2,7 @@ const dataSource = ""; // set to local to get the local data
 const dataFilter = '[data-filter]';
 const dataUser = '[data-user]';
 let filterLinks = [];
+let usersList = [];
 
 
 if (dataSource === 'local') {
@@ -47,6 +48,7 @@ function generateUsersList(obj) {
         holder.appendChild(userInfoHolder);
         parentHolder.appendChild(holder);
     }
+    usersList = document.querySelectorAll(dataUser)
 }
 
 const generateFilterList = (obj) => {
@@ -109,7 +111,7 @@ const color2 = getRandomColor();
 header.style.setProperty('background', 'linear-gradient(45deg, ' + color1 + ' 0%, ' + color2 + ' 100%)');
 setTimeout(() => {
     header.style.setProperty('opacity','0');
-},5200);
+},1200);
 
 setInterval(() => {
     const header = document.getElementById('header');
@@ -117,10 +119,10 @@ setInterval(() => {
     const color2 = getRandomColor();
     setTimeout(() => {
         header.style.setProperty('opacity','0');
-    },5200);
+    },1200);
     header.style.setProperty('background', 'linear-gradient(45deg, ' + color1 + ' 0%, ' + color2 + ' 100%)');
     header.style.setProperty('opacity','1');
-}, 6000);
+}, 2000);
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
