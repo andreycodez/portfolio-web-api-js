@@ -3,7 +3,6 @@ const dataSort = '[data-sort]'
 const dataUser = '[data-user]';
 let filterLinks = [];
 let sortLinks = [];
-let favourites = {};
 
 if (dataSource === 'local') {
     generateContent(dataLocal);
@@ -88,7 +87,6 @@ function setViewOptions() {
             }
         })
     }
-
     filterLinks = document.querySelectorAll(dataFilter);
     for (const item of filterLinks) {
         item.addEventListener('click', function() {
