@@ -63,6 +63,7 @@ h1
   margin: 30px 10px 0 10px
   border-bottom: 1px solid #E2E2E2
   padding-bottom: 20px
+  display: flex
   .filter-list
     list-style: none
     display: flex
@@ -89,6 +90,36 @@ h1
       color: #FFFFFF
       span
         color: #3EC7EE
+  .sorting
+    margin-left: auto
+    ul
+      list-style: none
+      display: flex
+      li
+        cursor: pointer
+        padding: 6px 10px
+        border: 1px solid #E2E2E2
+        border-radius: 5px
+        margin-left: 15px
+        margin-top: 10px
+      li:first-child
+        margin-left: 0
+      li.active
+        background: #495FEF
+        border: none
+        color: #FFFFFF
+  .favorite
+    margin-top: 10px
+    margin-left: auto
+    .link
+      border: 1px solid #E2E2E2
+      border-radius: 5px
+      padding: 6px 10px
+      &:hover
+        background: #495FEF
+        border: none
+        color: #FFFFFF
+
 
 .usersList
   display: flex
@@ -102,6 +133,7 @@ h1
     max-width: 200px
     margin: 10px
     overflow: hidden
+    cursor: pointer
     .user-info
       padding: 20px
       color: #716B6C

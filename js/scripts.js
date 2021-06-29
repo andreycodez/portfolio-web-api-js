@@ -1,9 +1,10 @@
 const dataSource = ""; // set to local to get the local data
 const dataFilter = '[data-filter]';
+const dataSort = '[data-sort]'
 const dataUser = '[data-user]';
 let filterLinks = [];
-let usersList = [];
-
+let sortLinks = [];
+let favourites = {};
 
 if (dataSource === 'local') {
     generateUsersList(dataLocal);
@@ -31,6 +32,7 @@ function generateUsersList(obj) {
         holder.setAttribute('class', 'user');
         holder.setAttribute('data-user', robo.id);
         holder.setAttribute('data-item', robo.subscription.plan);
+        holder.setAttribute('data-name', robo.first_name);
         const userInfoHolder = document.createElement('div');
         userInfoHolder.setAttribute('class', 'user-info');
         const genderHolder = document.createElement('p');
@@ -48,7 +50,40 @@ function generateUsersList(obj) {
         holder.appendChild(userInfoHolder);
         parentHolder.appendChild(holder);
     }
-    usersList = document.querySelectorAll(dataUser)
+    // = document.getElementById('userListId')
+    generateFilterList(obj);
+    disableLoader();
+
+    sortLinks = document.querySelectorAll(dataSort);
+    for (const item of sortLinks) {
+        item.addEventListener('click', function() {
+            sortLinks.forEach( link => link.classList.remove('active'));
+            if (!item.classList.contains('active')) {
+                item.classList.add('active');
+                console.log(item.dataset.sort);
+                sortItems('userListId', item.dataset.sort);
+            }
+        })
+    }
+}
+
+function sortItems(entity, way){
+    const parentHolder = document.getElementById(entity);
+    let arrItems = [];
+    parentHolder.childNodes.forEach( item => (item.nodeType === 1) ? arrItems.push(item) : 0);
+
+    if (way === 'asc') {
+        arrItems.sort(function (a, b) {
+            return a.dataset.name === b.dataset.name ? 0 : (a.dataset.name > b.dataset.name ? 1 : -1)
+        });
+    } else {
+        arrItems.sort(function (a, b) {
+            return a.dataset.name === b.dataset.name ? 0 : (a.dataset.name < b.dataset.name ? 1 : -1)
+        });
+    }
+
+    parentHolder.childNodes.forEach( item => item.remove());
+    arrItems.forEach( item => parentHolder.appendChild(item));
 }
 
 const generateFilterList = (obj) => {
@@ -104,6 +139,11 @@ function updateClass(type, element, className) {
     }
 }
 
+function disableLoader() {
+    const loader = document.getElementById('loaderLayer');
+    loader.style.setProperty('visibility', 'hidden')
+    loader.style.setProperty('opacity', '0')
+}
 
 const header = document.getElementById('header');
 const color1 = getRandomColor();

@@ -1,5 +1,5 @@
 let dataFromApi = { robos: {}, plans:{} };
-const usersCount = 30;
+const usersCount = 7;
 let arrPromise = [];
 
 for (let i = 0; i < usersCount; i++) {
@@ -18,9 +18,6 @@ Promise
         })
         dataFromApi.setPlans();
         generateUsersList(dataFromApi);
-        generateFilterList(dataFromApi);
-        const loader = document.getElementById('loaderLayer');
-        loader.style.setProperty('visibility', 'hidden')
-        loader.style.setProperty('opacity', '0')
+
     })
 
