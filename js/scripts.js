@@ -1,4 +1,3 @@
-const dataSource = ""; // set to local to get the local data
 const dataFilter = '[data-filter]';
 const dataSort = '[data-sort]'
 const dataUser = '[data-user]';
@@ -7,13 +6,21 @@ let sortLinks = [];
 let favourites = {};
 
 if (dataSource === 'local') {
-    generateUsersList(dataLocal);
+    generateContent(dataLocal);
     setInterval(() => {
         const loader = document.getElementById('loaderLayer')
         //loader.classList.remove('isVisible-flex')
         loader.style.setProperty('visibility', 'hidden')
         loader.style.setProperty('opacity', '0')
     }, 2000);
+}
+
+function generateContent(obj) {
+    generateUsersList(obj);
+    if (dataSource !== "local") { setPlans(obj) };
+    generateFilterList(obj);
+    setViewOptions();
+    disableLoader();
 }
 
 function generateUsersList(obj) {
@@ -27,7 +34,7 @@ function generateUsersList(obj) {
         imageHolder.setAttribute('class', 'image-holder')
         imageHolder.style.setProperty('background', getRandomColor())
         const image = document.createElement('img');
-        image.setAttribute('src',robo.avatar);
+        image.setAttribute('src', robo.avatar);
         const holder = document.createElement('div');
         holder.setAttribute('class', 'user');
         holder.setAttribute('data-user', robo.id);
@@ -50,10 +57,28 @@ function generateUsersList(obj) {
         holder.appendChild(userInfoHolder);
         parentHolder.appendChild(holder);
     }
-    // = document.getElementById('userListId')
-    generateFilterList(obj);
-    disableLoader();
+}
 
+const generateFilterList = (obj) => {
+    const filterItemsList = document.getElementById('filter');
+    const filterItemsObject = obj.plans;
+    const filterItemsArr = Object.entries(filterItemsObject);
+    const allFilterItem = document.createElement('li');
+    allFilterItem.setAttribute('class', 'filter-item active');
+    allFilterItem.setAttribute('data-filter', 'all');
+    allFilterItem.innerHTML = `All  <span>${Object.keys(obj.robos).length}</span>`;
+    filterItemsList.appendChild(allFilterItem);
+    for (let item of filterItemsArr) {
+        const filterItem = document.createElement('li');
+        filterItem.setAttribute('class', 'filter-item');
+        filterItem.setAttribute('data-filter', item[0]);
+        filterItem.innerHTML = `${item[0]}  <span>${item[1]}</span>`;
+        filterItemsList.appendChild(filterItem);
+    }
+
+}
+
+function setViewOptions() {
     sortLinks = document.querySelectorAll(dataSort);
     for (const item of sortLinks) {
         item.addEventListener('click', function() {
@@ -62,6 +87,18 @@ function generateUsersList(obj) {
                 item.classList.add('active');
                 console.log(item.dataset.sort);
                 sortItems('userListId', item.dataset.sort);
+            }
+        })
+    }
+
+    filterLinks = document.querySelectorAll(dataFilter);
+    for (const item of filterLinks) {
+        item.addEventListener('click', function() {
+            filterLinks.forEach( link => link.classList.remove('active'));
+            if (!item.classList.contains('active')) {
+                item.classList.add('active');
+                console.log(item.dataset.filter);
+                filterItems(item.dataset.filter);
             }
         })
     }
@@ -81,42 +118,11 @@ function sortItems(entity, way){
             return a.dataset.name === b.dataset.name ? 0 : (a.dataset.name < b.dataset.name ? 1 : -1)
         });
     }
-
     parentHolder.childNodes.forEach( item => item.remove());
     arrItems.forEach( item => parentHolder.appendChild(item));
 }
 
-const generateFilterList = (obj) => {
-    const filterItemsList = document.getElementById('filter');
-    const filterItemsObject = obj.plans;
-    const filterItemsArr = Object.entries(filterItemsObject);
-    //console.log(Object.entries(filterItemsObject).length);
-    const allFilterItem = document.createElement('li');
-    allFilterItem.setAttribute('class', 'filter-item active');
-    allFilterItem.setAttribute('data-filter', 'all');
-    allFilterItem.innerHTML = `All  <span>${Object.keys(obj.robos).length}</span>`;
-    filterItemsList.appendChild(allFilterItem);
-    for (let item of filterItemsArr) {
-        const filterItem = document.createElement('li');
-        filterItem.setAttribute('class', 'filter-item');
-        filterItem.setAttribute('data-filter', item[0]);
-        filterItem.innerHTML = `${item[0]}  <span>${item[1]}</span>`;
-        filterItemsList.appendChild(filterItem);
-    }
-    filterLinks = document.querySelectorAll(dataFilter);
-    for (const item of filterLinks) {
-        item.addEventListener('click', function() {
-            filterLinks.forEach( link => link.classList.remove('active'));
-            if (!item.classList.contains('active')) {
-                item.classList.add('active');
-                console.log(item.dataset.filter);
-                goFilterItems(item.dataset.filter);
-            }
-        })
-    }
-}
-
-function goFilterItems(filter) {
+function filterItems(filter) {
     const robos = document.querySelectorAll(dataUser);
     if (filter === 'all') {
         robos.forEach( item => item.style.display = 'block')
@@ -173,20 +179,15 @@ function getRandomColor() {
     return color;
 }
 
-
-dataFromApi.getARoboInfo = function(id) {
-    return this.robos[id];
-}
-
-dataFromApi.setPlans = function() {
-    const arr = Object.entries(this.robos);
+function setPlans(obj) {
+    const arr = Object.entries(obj.robos);
     for (let i = 0; i < arr.length; i++) {
         let tempArr = arr[i];
-        if (!this.plans.hasOwnProperty(tempArr[1].subscription.plan)) {
-            this.plans[tempArr[1].subscription.plan] = 1;
+        if (!obj.plans.hasOwnProperty(tempArr[1].subscription.plan)) {
+            obj.plans[tempArr[1].subscription.plan] = 1;
         } else {
-            this.plans[tempArr[1].subscription.plan]++;
+            obj.plans[tempArr[1].subscription.plan]++;
         }
     }
-    console.log(this)
+    console.log(obj)
 }
