@@ -17,7 +17,7 @@ if (dataSource === 'local') {
 
 function generateContent(obj) {
     generateUsersList(obj);
-    if (dataSource !== "local") { setPlans(obj) };
+    setPlans(obj)
     generateFilterList(obj);
     setViewOptions();
     disableLoader();
@@ -59,7 +59,7 @@ function generateUsersList(obj) {
     }
 }
 
-const generateFilterList = (obj) => {
+function generateFilterList(obj) {
     const filterItemsList = document.getElementById('filter');
     const filterItemsObject = obj.plans;
     const filterItemsArr = Object.entries(filterItemsObject);
@@ -75,7 +75,6 @@ const generateFilterList = (obj) => {
         filterItem.innerHTML = `${item[0]}  <span>${item[1]}</span>`;
         filterItemsList.appendChild(filterItem);
     }
-
 }
 
 function setViewOptions() {
@@ -85,7 +84,6 @@ function setViewOptions() {
             sortLinks.forEach( link => link.classList.remove('active'));
             if (!item.classList.contains('active')) {
                 item.classList.add('active');
-                console.log(item.dataset.sort);
                 sortItems('userListId', item.dataset.sort);
             }
         })
@@ -97,7 +95,6 @@ function setViewOptions() {
             filterLinks.forEach( link => link.classList.remove('active'));
             if (!item.classList.contains('active')) {
                 item.classList.add('active');
-                console.log(item.dataset.filter);
                 filterItems(item.dataset.filter);
             }
         })
@@ -183,11 +180,11 @@ function setPlans(obj) {
     const arr = Object.entries(obj.robos);
     for (let i = 0; i < arr.length; i++) {
         let tempArr = arr[i];
+        if (!obj.hasOwnProperty('plans')) { obj.plans = {}}
         if (!obj.plans.hasOwnProperty(tempArr[1].subscription.plan)) {
             obj.plans[tempArr[1].subscription.plan] = 1;
         } else {
             obj.plans[tempArr[1].subscription.plan]++;
         }
     }
-    console.log(obj)
 }

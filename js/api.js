@@ -1,8 +1,8 @@
-const dataSource = "";
+const dataSource = "api";
 
 if (dataSource !== 'local') {
     let dataFromApi = { robos: {}, plans:{} };
-    const usersCount = 9;
+    const usersCount = 20;
     let arrPromise = [];
 
     for (let i = 0; i < usersCount; i++) {
@@ -20,7 +20,6 @@ if (dataSource !== 'local') {
                 dataFromApi.robos[item.id].status = 'active';
             })
             generateContent(dataFromApi);
-
         })
 }
 

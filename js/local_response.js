@@ -361,14 +361,5 @@ let dataLocal =
                 },
                 "status": "active"
             }
-        },
-        "plans": {
-            "Gold": 2,
-            "Student": 1,
-            "Diamond": 1,
-            "Free Trial": 1,
-            "Silver": 2,
-            "Basic": 1,
-            "Premium": 1
         }
     }
