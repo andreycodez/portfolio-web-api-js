@@ -64,34 +64,45 @@ h1
   border-bottom: 1px solid #E2E2E2
   padding-bottom: 20px
   display: flex
-  .filter-list
-    list-style: none
-    display: flex
-    flex-wrap: wrap
-    max-width: 600px
-    .filter-item
-      margin-top: 10px
-      margin-right: 15px
-      padding: 6px 10px
-      border-radius: 5px
-      font-size: 12px
+  .filtering
+    text-align: center
+    span
+      color: #444444
+      font-size: 10px
       text-transform: uppercase
-      cursor: pointer
-      &:hover
+    .filter-list
+      list-style: none
+      display: flex
+      flex-wrap: wrap
+      max-width: 600px
+      .filter-item
+        margin-top: 10px
+        margin-right: 15px
+        padding: 6px 10px
+        border-radius: 5px
+        font-size: 12px
+        text-transform: uppercase
+        cursor: pointer
+        &:hover
+          background: #495FEF
+          color: #FFFFFF
+          span
+            color: #3EC7EE
+        span
+          font-size: 10px
+          font-weight: bold
+      .active
         background: #495FEF
         color: #FFFFFF
         span
           color: #3EC7EE
-      span
-        font-size: 10px
-        font-weight: bold
-    .active
-      background: #495FEF
-      color: #FFFFFF
-      span
-        color: #3EC7EE
   .sorting
+    text-align: center
     margin-left: auto
+    span
+      color: #444444
+      font-size: 10px
+      text-transform: uppercase
     ul
       list-style: none
       display: flex

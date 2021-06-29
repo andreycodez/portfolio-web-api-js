@@ -63,34 +63,45 @@ h1 {
   border-bottom: 1px solid #E2E2E2;
   padding-bottom: 20px;
   display: flex; }
-  .options .filter-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 600px; }
-    .options .filter-list .filter-item {
-      margin-top: 10px;
-      margin-right: 15px;
-      padding: 6px 10px;
-      border-radius: 5px;
-      font-size: 12px;
-      text-transform: uppercase;
-      cursor: pointer; }
-      .options .filter-list .filter-item:hover {
+  .options .filtering {
+    text-align: center; }
+    .options .filtering span {
+      color: #444444;
+      font-size: 10px;
+      text-transform: uppercase; }
+    .options .filtering .filter-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 600px; }
+      .options .filtering .filter-list .filter-item {
+        margin-top: 10px;
+        margin-right: 15px;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        text-transform: uppercase;
+        cursor: pointer; }
+        .options .filtering .filter-list .filter-item:hover {
+          background: #495FEF;
+          color: #FFFFFF; }
+          .options .filtering .filter-list .filter-item:hover span {
+            color: #3EC7EE; }
+        .options .filtering .filter-list .filter-item span {
+          font-size: 10px;
+          font-weight: bold; }
+      .options .filtering .filter-list .active {
         background: #495FEF;
         color: #FFFFFF; }
-        .options .filter-list .filter-item:hover span {
+        .options .filtering .filter-list .active span {
           color: #3EC7EE; }
-      .options .filter-list .filter-item span {
-        font-size: 10px;
-        font-weight: bold; }
-    .options .filter-list .active {
-      background: #495FEF;
-      color: #FFFFFF; }
-      .options .filter-list .active span {
-        color: #3EC7EE; }
   .options .sorting {
+    text-align: center;
     margin-left: auto; }
+    .options .sorting span {
+      color: #444444;
+      font-size: 10px;
+      text-transform: uppercase; }
     .options .sorting ul {
       list-style: none;
       display: flex; }
