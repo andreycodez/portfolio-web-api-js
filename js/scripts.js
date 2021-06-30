@@ -6,7 +6,6 @@ let sortLinks = [];
 
 if (dataSource === 'local') {
     generateContent(dataLocal);
-    //generateModal(2283, dataLocal);
     setInterval(() => {
         const loader = document.getElementById('loaderLayer')
         //loader.classList.remove('isVisible-flex')
@@ -67,7 +66,6 @@ function addModalEvents(obj){
         item.addEventListener('click', () => {
             console.log(item.dataset.user);
             generateModal(item.dataset.user, obj);
-            //modalCloseEvent();
             const modal = document.getElementById('modal');
             modal.classList.remove('is-hidden');
             modal.classList.add('is-visible');
@@ -125,20 +123,6 @@ function generateModal(id, obj) {
 
     const modalFooter = document.createElement('div');
     modalFooter.setAttribute('class','modal-footer');
-}
-
-// function modalCloseEvent() {
-//     const modalClose = document.getElementById('modalClose');
-//     modalClose.addEventListener('click', () => {
-//         const getAModal = document.querySelector('.modal.is-visible');
-//         getAModal.classList.remove('is-visible');
-//         getAModal.classList.add('is-hidden');
-//     })
-// }
-
-function deleteModal() {
-    const modal = document.getElementById('modal');
-    modal.remove();
 }
 
 function generateFilterList(obj) {
