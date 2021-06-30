@@ -76,7 +76,20 @@ function addModalEvents(obj){
 function generateModal(id, obj) {
     const robo = obj.robos[id];
     const description = Object.entries(robo).map((item) => {
-        return `<strong>${item[0]}:</strong>${item[1]}<br/>`
+        if (item[0] === 'email') {
+            return `<strong>${item[0]}:</strong> <a href="mailto:${item[1]}">${item[1]}</a><br/>`
+        } else if (item[0] === 'id'
+            || item[0] === 'uid'
+            || item[0] === 'firs_name'
+            || item[0] === 'last_name'
+            || item[0] === 'user_name'
+            || item[0] === 'gender'
+            || item[0] === 'date_of_birth'
+            ){
+            return `<strong>${item[0]}:</strong> ${item[1]}<br/>`
+        } else {
+            return ''
+        }
     })
     const controlPoint = document.querySelector('.content-wrapper');
     const newNode = document.createElement('div');
