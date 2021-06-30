@@ -75,6 +75,9 @@ function addModalEvents(obj){
 
 function generateModal(id, obj) {
     const robo = obj.robos[id];
+    const description = Object.entries(robo).map((item) => {
+        return `<strong>${item[0]}:</strong>${item[1]}<br/>`
+    })
     const controlPoint = document.querySelector('.content-wrapper');
     const newNode = document.createElement('div');
     controlPoint.after(newNode);
@@ -109,7 +112,7 @@ function generateModal(id, obj) {
     modalImage.appendChild(imageHolder);
     const modalDescription = document.createElement('div');
     modalDescription.setAttribute('class', 'modal-description');
-    modalDescription.innerHTML = 'Some Lorem Ipsum dolor text for description.';
+    modalDescription.innerHTML = description.join('');
     modalBody.appendChild(modalImage);
     modalBody.appendChild(modalDescription);
     modalBox.appendChild(modalBody);
