@@ -6,6 +6,7 @@ let sortLinks = [];
 
 if (dataSource === 'local') {
     generateContent(dataLocal);
+    //generateModal(2283, dataLocal);
     setInterval(() => {
         const loader = document.getElementById('loaderLayer')
         //loader.classList.remove('isVisible-flex')
@@ -16,6 +17,7 @@ if (dataSource === 'local') {
 
 function generateContent(obj) {
     generateUsersList(obj);
+    addModalEvents(obj);
     setPlans(obj)
     generateFilterList(obj);
     setViewOptions();
@@ -56,6 +58,87 @@ function generateUsersList(obj) {
         holder.appendChild(userInfoHolder);
         parentHolder.appendChild(holder);
     }
+    console.log(obj.robos);
+}
+
+function addModalEvents(obj){
+    const eventAreas = document.querySelectorAll(dataUser);
+    eventAreas.forEach( item => {
+        item.addEventListener('click', () => {
+            console.log(item.dataset.user);
+            generateModal(item.dataset.user, obj);
+            //modalCloseEvent();
+            const modal = document.getElementById('modal');
+            modal.classList.remove('is-hidden');
+            modal.classList.add('is-visible');
+        })
+    })
+}
+
+function generateModal(id, obj) {
+    const robo = obj.robos[id];
+    const controlPoint = document.querySelector('.content-wrapper');
+    const newNode = document.createElement('div');
+    controlPoint.after(newNode);
+    newNode.setAttribute('id', `modal`);
+    newNode.setAttribute('class', 'modal is-hidden');
+
+    const modalBox = document.createElement('div');
+    modalBox.setAttribute('class', 'modal-box');
+    newNode.appendChild(modalBox);
+
+    const modalHeader = document.createElement('div');
+    modalHeader.setAttribute('class', 'modal-header');
+    const header = document.createElement('h2');
+    header.innerHTML = robo.first_name + ' ' + robo.last_name;
+    modalHeader.appendChild(header);
+    const modalCloseIcon = document.createElement('div');
+    modalCloseIcon.setAttribute('class', 'modal-close');
+
+    const closeIcon = document.createElement('i');
+    closeIcon.setAttribute('class', 'fa fa-times');
+    modalCloseIcon.appendChild(closeIcon);
+    modalHeader.appendChild(modalCloseIcon);
+    modalBox.appendChild(modalHeader);
+
+    const modalBody = document.createElement('div');
+    modalBody.setAttribute('class', 'modal-body');
+    const modalImage = document.createElement('div');
+    modalImage.setAttribute('class', 'modal-image');
+    const imageHolder = document.createElement('img');
+    imageHolder.setAttribute('src', robo.avatar);
+    imageHolder.style.background = getRandomColor();
+    modalImage.appendChild(imageHolder);
+    const modalDescription = document.createElement('div');
+    modalDescription.setAttribute('class', 'modal-description');
+    modalDescription.innerHTML = 'Some Lorem Ipsum dolor text for description.';
+    modalBody.appendChild(modalImage);
+    modalBody.appendChild(modalDescription);
+    modalBox.appendChild(modalBody);
+
+    modalCloseIcon.addEventListener('click', () => {
+        const getAModal = document.querySelector('.modal.is-visible');
+        getAModal.classList.remove('is-visible');
+        getAModal.classList.add('is-hidden');
+        getAModal.remove();
+    })
+
+    const modalFooter = document.createElement('div');
+    modalFooter.setAttribute('class','modal-footer');
+}
+
+// function modalCloseEvent() {
+//     const modalClose = document.getElementById('modalClose');
+//     modalClose.addEventListener('click', () => {
+//         const getAModal = document.querySelector('.modal.is-visible');
+//         getAModal.classList.remove('is-visible');
+//         getAModal.classList.add('is-hidden');
+//     })
+// }
+
+function deleteModal() {
+    const modal = document.getElementById('modal');
+    modal.remove();
 }
 
 function generateFilterList(obj) {
