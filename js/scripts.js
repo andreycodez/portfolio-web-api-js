@@ -3,6 +3,9 @@ const dataSort = '[data-sort]'
 const dataUser = '[data-user]';
 let filterLinks = [];
 let sortLinks = [];
+let tempFavourites = {};
+let filterSettings = {};
+let sortSettings = {};
 
 if (dataSource === 'local') {
     generateContent(dataLocal);
@@ -21,6 +24,8 @@ function generateContent(obj) {
     generateFilterList(obj);
     setViewOptions();
     disableLoader();
+    generateFav(obj.robos, 974);
+    generateFav(obj.robos, 2283);
 }
 
 function generateUsersList(obj) {
@@ -65,7 +70,7 @@ function addModalEvents(obj){
     eventAreas.forEach( item => {
         item.addEventListener('click', () => {
             console.log(item.dataset.user);
-            generateModal(item.dataset.user, obj);
+            generateModal(obj, item.dataset.user);
             const modal = document.getElementById('modal');
             modal.classList.remove('is-hidden');
             modal.classList.add('is-visible');
@@ -73,7 +78,7 @@ function addModalEvents(obj){
     })
 }
 
-function generateModal(id, obj) {
+function generateModal(obj, id) {
     const robo = obj.robos[id];
     const description = Object.entries(robo).map((item) => {
         if (item[0] === 'email') {
@@ -198,6 +203,7 @@ function sortItems(entity, way){
     }
     parentHolder.childNodes.forEach( item => item.remove());
     arrItems.forEach( item => parentHolder.appendChild(item));
+
 }
 
 function filterItems(filter) {
@@ -266,6 +272,81 @@ function setPlans(obj) {
             obj.plans[tempArr[1].subscription.plan] = 1;
         } else {
             obj.plans[tempArr[1].subscription.plan]++;
+        }
+    }
+}
+
+function favsDeleteEventSet() {
+    const deleteItems = document.querySelectorAll('[data-delete]');
+    for (const item of deleteItems) {
+        item.addEventListener('click', () => {
+            item.parentElement.remove();
+            //TODO: Get the no more favorites state below
+            if (document.getElementsByClassName('fav-item') === null) {
+                console.log('No more Items in Favorites');
+            }
+        })
+    }
+}
+
+function generateFav(obj, id) {
+    const robo = obj[id];
+    const parentItem = document.getElementById('favList');
+
+    const favItem = document.createElement('div');
+    favItem.setAttribute('class', 'fav-item');
+    favItem.setAttribute('id', id);
+
+    const delItem = document.createElement('div');
+    delItem.setAttribute('class','delete-item');
+    delItem.setAttribute('data-delete', '');
+    const delIcon = document.createElement('i');
+    delIcon.setAttribute('class','fa fa-times');
+    delItem.appendChild(delIcon);
+    favItem.appendChild(delItem);
+
+    const imageWrapper = document.createElement('div');
+    imageWrapper.setAttribute('class','image-wrapper');
+    const imageItem = document.createElement('img');
+    imageItem.setAttribute('src', robo.avatar);
+    imageWrapper.appendChild(imageItem);
+    favItem.appendChild(imageWrapper);
+
+    const descriptionWrapper = document.createElement('div');
+    descriptionWrapper.setAttribute('class', 'fav-description');
+    const favName = document.createElement('div');
+    favName.setAttribute('class', 'fav-name');
+    favName.innerHTML = robo.first_name + ' ' + robo.last_name;
+    const favPlan = document.createElement('div');
+    favPlan.setAttribute('class', 'fav-plan');
+    favPlan.innerHTML = robo.subscription.plan;
+    descriptionWrapper.appendChild(favName);
+    descriptionWrapper.appendChild(favPlan);
+    favItem.appendChild(descriptionWrapper);
+
+    parentItem.appendChild(favItem);
+    favsDeleteEventSet();
+    deleteNodeFromList(974);
+}
+
+function deleteNodeFromList(nodeId) {
+    const nodeList = document.getElementById('userListId');
+
+    for (const item of nodeList.childNodes) {
+        if (+item.dataset.user === nodeId) {
+            tempFavourites[nodeId] = item;
+            nodeList.removeChild(item);
+        }
+    }
+    console.log(tempFavourites);
+}
+
+function addNodeToList(nodeId) {
+    const nodeList = document.getElementById('userListId');
+    for (let item of tempFavourites) {
+        if (+item.id === nodeId) {
+            console.log(item);
+            nodeList.appendChild(item);
         }
     }
 }
