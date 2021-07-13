@@ -22,7 +22,7 @@
         <h1>Random Robos</h1>
         <div id="header" class="header"></div>
     </div>
-    <div class="content-wrapper">
+    <div class="content-wrapper main-content">
         <div class="options">
             <div class="filtering">
                 <span>Filtering</span>
@@ -38,9 +38,15 @@
         </div>
         <div id="userListId" class="usersList"></div>
     </div>
-    <div class="favorites">
+    <div id="favPanel" class="favorites">
         <div class="content-wrapper">
             <h2>Favorites</h2>
+            <div class="sorting">
+                <ul>
+                    <li data-sort="asc">a-z <i class="fa fa-arrow-up"></i></li>
+                    <li data-sort="desc">z-a <i class="fa fa-arrow-down"></i></li>
+                </ul>
+            </div>
             <div id="favList" class="fav-list">
             </div>
         </div>

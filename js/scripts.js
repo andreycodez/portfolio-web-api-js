@@ -76,7 +76,6 @@ function addModalEvents(obj){
     eventAreas.forEach( item => {
         const imageHolder = item.querySelector('div.image-holder')
         imageHolder.addEventListener('click', () => {
-            //console.log(item.dataset.user);
             generateModal(obj, item.dataset.user);
             const modal = document.getElementById('modal');
             modal.classList.remove('is-hidden');
@@ -283,18 +282,13 @@ function favsDeleteEventSet() {
         item.addEventListener('click', () => {
             item.parentElement.remove();
             addNodeToList(item.parentElement.getAttribute('id'));
-            //TODO: Get the no more favorites state below
-
-            if (document.getElementsByClassName('fav-item') === null) {
-                console.log('No more Items in Favorites');
-            }
+            updateFavPanelState();
         })
     }
 }
 
 function generateFav(obj, id) {
     const robo = obj.robos[id];
-    console.log(obj)
     const parentItem = document.getElementById('favList');
     const favItem = document.createElement('div');
     favItem.setAttribute('class', 'fav-item');
@@ -326,6 +320,7 @@ function generateFav(obj, id) {
     parentItem.appendChild(favItem);
     favsDeleteEventSet();
     deleteNodeFromList(id);
+    updateFavPanelState();
 }
 
 function deleteNodeFromList(nodeId) {
@@ -358,6 +353,15 @@ function setAddToFavoritesEventOnUser(obj) {
     }
 }
 
-// function showFavsPanel() {
-//     const favsExist =
-// }
+function updateFavPanelState() {
+    if (document.querySelectorAll('.fav-item').length == 0) {
+        const favPanel = document.getElementById('favPanel');
+        favPanel.style.setProperty('bottom','-100%');
+        const mainContent = document.querySelector('.main-content');
+        mainContent.style.setProperty('margin-bottom', 0);
+    } else {
+        favPanel.style.setProperty('bottom','0');
+        const mainContent = document.querySelector('.main-content');
+        mainContent.style.setProperty('margin-bottom', window.getComputedStyle(favPanel, null).getPropertyValue('height'))
+    }
+}
