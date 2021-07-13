@@ -4,8 +4,7 @@ const dataUser = '[data-user]';
 let filterLinks = [];
 let sortLinks = [];
 let tempFavourites = {};
-let filterSettings = {};
-let sortSettings = {};
+let settings = { filter: {}, sorting: {} };
 
 if (dataSource === 'local') {
     generateContent(dataLocal);
@@ -24,8 +23,8 @@ function generateContent(obj) {
     generateFilterList(obj);
     setViewOptions();
     disableLoader();
-    generateFav(obj.robos, 974);
-    generateFav(obj.robos, 2283);
+    //generateFav(obj.robos, 974);
+    //generateFav(obj.robos, 2283);
 }
 
 function generateUsersList(obj) {
@@ -54,22 +53,30 @@ function generateUsersList(obj) {
         const subsPlan = document.createElement('p');
         subsPlan.innerHTML = '\<strong\>Plan:\</strong\> ' + robo.subscription.plan;
         holder.appendChild(imageHolder);
+
+        const favItem = document.createElement('a');
+        favItem.setAttribute('class', 'fav-button');
+        favItem.innerHTML = 'add to favorites';
+        favItem.setAttribute('data-favorite', '');
+
         imageHolder.appendChild(image);
         userInfoHolder.appendChild(nameHolder);
         userInfoHolder.appendChild(genderHolder);
         userInfoHolder.appendChild(dateOfBirth);
         userInfoHolder.appendChild(subsPlan);
         holder.appendChild(userInfoHolder);
+        holder.appendChild(favItem);
         parentHolder.appendChild(holder);
     }
-    console.log(obj.robos);
+    setAddToFavoritesEventOnUser(obj)
 }
 
 function addModalEvents(obj){
     const eventAreas = document.querySelectorAll(dataUser);
     eventAreas.forEach( item => {
-        item.addEventListener('click', () => {
-            console.log(item.dataset.user);
+        const imageHolder = item.querySelector('div.image-holder')
+        imageHolder.addEventListener('click', () => {
+            //console.log(item.dataset.user);
             generateModal(obj, item.dataset.user);
             const modal = document.getElementById('modal');
             modal.classList.remove('is-hidden');
@@ -189,6 +196,7 @@ function setViewOptions() {
 
 function sortItems(entity, way){
     const parentHolder = document.getElementById(entity);
+    settings.sorting.userlist = way;
     let arrItems = [];
     parentHolder.childNodes.forEach( item => (item.nodeType === 1) ? arrItems.push(item) : 0);
 
@@ -208,24 +216,17 @@ function sortItems(entity, way){
 
 function filterItems(filter) {
     const robos = document.querySelectorAll(dataUser);
+    settings.filter.userfilter = filter;
     if (filter === 'all') {
-        robos.forEach( item => item.style.display = 'block')
+        robos.forEach( item => item.style.display = 'flex')
     } else {
         for (const robo of robos) {
             if (robo.dataset.item !== filter) {
                 robo.style.display = 'none'
             } else {
-                robo.style.display = 'block'
+                robo.style.display = 'flex'
             }
         }
-    }
-}
-
-function updateClass(type, element, className) {
-    if (type === 'add') {
-        element.classList.add(className);
-    } else if (type === 'remove') {
-        element.classList.remove(className);
     }
 }
 
@@ -281,7 +282,9 @@ function favsDeleteEventSet() {
     for (const item of deleteItems) {
         item.addEventListener('click', () => {
             item.parentElement.remove();
+            addNodeToList(item.parentElement.getAttribute('id'));
             //TODO: Get the no more favorites state below
+
             if (document.getElementsByClassName('fav-item') === null) {
                 console.log('No more Items in Favorites');
             }
@@ -290,13 +293,12 @@ function favsDeleteEventSet() {
 }
 
 function generateFav(obj, id) {
-    const robo = obj[id];
+    const robo = obj.robos[id];
+    console.log(obj)
     const parentItem = document.getElementById('favList');
-
     const favItem = document.createElement('div');
     favItem.setAttribute('class', 'fav-item');
     favItem.setAttribute('id', id);
-
     const delItem = document.createElement('div');
     delItem.setAttribute('class','delete-item');
     delItem.setAttribute('data-delete', '');
@@ -304,14 +306,12 @@ function generateFav(obj, id) {
     delIcon.setAttribute('class','fa fa-times');
     delItem.appendChild(delIcon);
     favItem.appendChild(delItem);
-
     const imageWrapper = document.createElement('div');
     imageWrapper.setAttribute('class','image-wrapper');
     const imageItem = document.createElement('img');
     imageItem.setAttribute('src', robo.avatar);
     imageWrapper.appendChild(imageItem);
     favItem.appendChild(imageWrapper);
-
     const descriptionWrapper = document.createElement('div');
     descriptionWrapper.setAttribute('class', 'fav-description');
     const favName = document.createElement('div');
@@ -323,30 +323,41 @@ function generateFav(obj, id) {
     descriptionWrapper.appendChild(favName);
     descriptionWrapper.appendChild(favPlan);
     favItem.appendChild(descriptionWrapper);
-
     parentItem.appendChild(favItem);
     favsDeleteEventSet();
-    deleteNodeFromList(974);
+    deleteNodeFromList(id);
 }
 
 function deleteNodeFromList(nodeId) {
     const nodeList = document.getElementById('userListId');
-
     for (const item of nodeList.childNodes) {
         if (+item.dataset.user === nodeId) {
             tempFavourites[nodeId] = item;
             nodeList.removeChild(item);
         }
     }
-    console.log(tempFavourites);
 }
 
 function addNodeToList(nodeId) {
     const nodeList = document.getElementById('userListId');
-    for (let item of tempFavourites) {
-        if (+item.id === nodeId) {
-            console.log(item);
-            nodeList.appendChild(item);
+    for (let item of Object.entries(tempFavourites)) {
+        if (item[0] === nodeId) {
+            nodeList.appendChild(item[1]);
+            if (settings.filter['userfilter']) { filterItems(settings.filter['userfilter']); }
+            if (settings.sorting.userlist) { sortItems('userListId', settings.sorting.userlist); }
         }
     }
 }
+
+function setAddToFavoritesEventOnUser(obj) {
+    const favButtons = document.querySelectorAll('[data-favorite]');
+    for (const item of favButtons) {
+        item.addEventListener('click', () => {
+            generateFav(obj, +item.parentElement.dataset.user);
+        })
+    }
+}
+
+// function showFavsPanel() {
+//     const favsExist =
+// }

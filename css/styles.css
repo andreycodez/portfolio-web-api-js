@@ -136,15 +136,26 @@ h1 {
   margin: 20px auto 0 auto;
   justify-content: center; }
   .usersList .user {
-    display: block;
+    display: flex;
+    flex-direction: column;
     border: 1px solid #e9e9e9;
     border-radius: 5px;
     max-width: 200px;
     margin: 10px;
     overflow: hidden;
     cursor: pointer; }
+    .usersList .user .fav-button {
+      display: inline-block;
+      margin: 20px auto 20px;
+      padding: 7px 12px;
+      background-color: #495FEF;
+      color: #FFFFFF;
+      border-radius: 8px;
+      z-index: 2; }
+      .usersList .user .fav-button:hover {
+        background-color: indianred; }
     .usersList .user .user-info {
-      padding: 20px;
+      padding: 20px 20px 0 20px;
       color: #716B6C; }
       .usersList .user .user-info p {
         line-height: 24px; }
