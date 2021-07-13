@@ -1,4 +1,5 @@
 const dataFilter = '[data-filter]';
+const dataToSort = '[data-tosort]';
 const dataSort = '[data-sort]'
 const dataUser = '[data-user]';
 let filterLinks = [];
@@ -171,13 +172,14 @@ function generateFilterList(obj) {
 }
 
 function setViewOptions() {
-    sortLinks = document.querySelectorAll(dataSort);
+    sortLinks = document.querySelectorAll(dataToSort);
+    console.log(sortLinks);
     for (const item of sortLinks) {
         item.addEventListener('click', function() {
             sortLinks.forEach( link => link.classList.remove('active'));
             if (!item.classList.contains('active')) {
                 item.classList.add('active');
-                sortItems('userListId', item.dataset.sort);
+                sortItems(item.dataset.tosort, item.dataset.sort);
             }
         })
     }
@@ -293,6 +295,7 @@ function generateFav(obj, id) {
     const favItem = document.createElement('div');
     favItem.setAttribute('class', 'fav-item');
     favItem.setAttribute('id', id);
+    favItem.setAttribute('data-name', robo.first_name)
     const delItem = document.createElement('div');
     delItem.setAttribute('class','delete-item');
     delItem.setAttribute('data-delete', '');
