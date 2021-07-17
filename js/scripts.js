@@ -372,7 +372,7 @@ function updateFavPanelState(state) {
         const favPanel = document.getElementById('favPanel');
         favPanel.style.setProperty('bottom','-100%');
         const mainContent = document.querySelector('.main-content');
-        mainContent.style.setProperty('margin-bottom', 0);
+        mainContent.style.setProperty('margin-bottom', '40px');
     } else {
         const favPanel = document.getElementById('favPanel');
         favPanel.style.setProperty('bottom','0');
