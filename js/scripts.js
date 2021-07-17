@@ -128,9 +128,9 @@ function generateModal(obj, id) {
     modalBody.setAttribute('class', 'modal-body');
     const modalImage = document.createElement('div');
     modalImage.setAttribute('class', 'modal-image');
+    modalImage.style.background = getRandomColor();
     const imageHolder = document.createElement('img');
     imageHolder.setAttribute('src', robo.avatar);
-    imageHolder.style.background = getRandomColor();
     modalImage.appendChild(imageHolder);
     const modalDescription = document.createElement('div');
     modalDescription.setAttribute('class', 'modal-description');

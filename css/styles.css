@@ -346,6 +346,35 @@ h1 {
         justify-content: center; }
         .usersList .user .image-holder img {
           width: 200px;
-          height: 200px; } }
+          height: 200px; }
+
+  .modal .modal-box {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    border: none;
+    border-radius: 0; }
+    .modal .modal-box .modal-header {
+      justify-content: center; }
+      .modal .modal-box .modal-header .modal-close {
+        background-color: darkred;
+        color: #FFFFFF;
+        padding: 15px;
+        border-radius: 50%;
+        position: absolute;
+        right: 30px;
+        bottom: 50px; }
+    .modal .modal-box .modal-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; }
+      .modal .modal-box .modal-body .modal-image {
+        width: 100%;
+        display: flex;
+        justify-content: center; }
+        .modal .modal-box .modal-body .modal-image img {
+          width: 200px; }
+      .modal .modal-box .modal-body .modal-description {
+        margin-top: 30px; } }
 
 /*# sourceMappingURL=styles.css.map */

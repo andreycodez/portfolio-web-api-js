@@ -1,4 +1,4 @@
-const dataSource = "api";
+const dataSource = "local";
 
 if (dataSource !== 'local') {
     let dataFromApi = { robos: {}, plans:{} };
