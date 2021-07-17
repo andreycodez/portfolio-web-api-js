@@ -1,6 +1,5 @@
 const dataFilter = '[data-filter]';
 const dataToSort = '[data-tosort]';
-const dataSort = '[data-sort]'
 const dataUser = '[data-user]';
 let filterLinks = [];
 let sortLinks = [];
@@ -24,8 +23,6 @@ function generateContent(obj) {
     generateFilterList(obj);
     setViewOptions();
     disableLoader();
-    //generateFav(obj.robos, 974);
-    //generateFav(obj.robos, 2283);
 }
 
 function generateUsersList(obj) {
@@ -57,7 +54,7 @@ function generateUsersList(obj) {
 
         const favItem = document.createElement('a');
         favItem.setAttribute('class', 'fav-button');
-        favItem.innerHTML = 'add to favorites';
+        favItem.innerHTML = 'Add To Favs';
         favItem.setAttribute('data-favorite', '');
 
         imageHolder.appendChild(image);
@@ -173,7 +170,6 @@ function generateFilterList(obj) {
 
 function setViewOptions() {
     sortLinks = document.querySelectorAll(dataToSort);
-    console.log(sortLinks);
     for (const item of sortLinks) {
         item.addEventListener('click', function() {
             sortLinks.forEach( link => link.classList.remove('active'));
@@ -197,7 +193,7 @@ function setViewOptions() {
 
 function sortItems(entity, way){
     const parentHolder = document.getElementById(entity);
-    settings.sorting.userlist = way;
+    settings.sorting[entity] = way;
     let arrItems = [];
     parentHolder.childNodes.forEach( item => (item.nodeType === 1) ? arrItems.push(item) : 0);
 
@@ -324,6 +320,9 @@ function generateFav(obj, id) {
     favsDeleteEventSet();
     deleteNodeFromList(id);
     updateFavPanelState();
+    if (settings.sorting.favList != null || settings.sorting.favList != undefined) {
+        sortItems('favList', settings.sorting.favList)
+    }
 }
 
 function deleteNodeFromList(nodeId) {
@@ -341,8 +340,12 @@ function addNodeToList(nodeId) {
     for (let item of Object.entries(tempFavourites)) {
         if (item[0] === nodeId) {
             nodeList.appendChild(item[1]);
-            if (settings.filter['userfilter']) { filterItems(settings.filter['userfilter']); }
-            if (settings.sorting.userlist) { sortItems('userListId', settings.sorting.userlist); }
+            if (settings.filter['userfilter'] != null || settings.filter['userfilter'] != undefined) {
+                filterItems(settings.filter['userfilter']);
+            }
+            if (settings.sorting.userListId != null || settings.sorting.userListId != undefined) {
+                sortItems('userListId', settings.sorting.userListId);
+            }
         }
     }
 }
@@ -365,6 +368,9 @@ function updateFavPanelState() {
     } else {
         favPanel.style.setProperty('bottom','0');
         const mainContent = document.querySelector('.main-content');
-        mainContent.style.setProperty('margin-bottom', window.getComputedStyle(favPanel, null).getPropertyValue('height'))
+        mainContent.style.setProperty(
+            'margin-bottom',
+            `${parseInt(window.getComputedStyle(favPanel, null).getPropertyValue('height')) + 50}px`
+        );
     }
 }

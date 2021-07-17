@@ -151,7 +151,8 @@ h1 {
       padding: 7px 12px;
       background-color: #495FEF;
       color: #FFFFFF;
-      border-radius: 8px; }
+      border-radius: 8px;
+      font-weight: bold; }
       .usersList .user .fav-button:hover {
         background-color: indianred; }
     .usersList .user .user-info {
@@ -174,13 +175,10 @@ h1 {
     .usersList .user .image-holder {
       position: relative;
       height: 200px;
-      width: 200px; }
+      width: 200px;
+      display: flex;
+      align-items: end; }
       .usersList .user .image-holder img {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
         width: 100%; }
 
 .modal {
@@ -238,38 +236,38 @@ h1 {
   right: 0;
   background: #495FEF;
   transition: all 0.3s ease-in-out; }
-  .favorites h2 {
-    display: inline;
-    margin-top: 30px;
-    color: #FFFFFF;
+  .favorites .content-wrapper .heading {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
     margin-bottom: 40px; }
-  .favorites .sorting {
-    position: absolute;
-    left: 250px;
-    top: 20px;
-    color: #FFFFFF; }
-    .favorites .sorting ul {
-      list-style-type: none;
-      display: flex; }
-      .favorites .sorting ul li {
-        cursor: pointer;
-        padding: 6px 10px;
-        border: 1px solid #E2E2E2;
-        border-radius: 5px;
-        margin-left: 15px;
-        margin-top: 10px; }
-      .favorites .sorting ul li.active {
-        background-color: #FFFFFF;
-        color: #495FEF; }
+    .favorites .content-wrapper .heading h2 {
+      color: #FFFFFF; }
+    .favorites .content-wrapper .heading .sorting {
+      color: #FFFFFF;
+      margin-left: auto; }
+      .favorites .content-wrapper .heading .sorting ul {
+        list-style-type: none;
+        display: flex; }
+        .favorites .content-wrapper .heading .sorting ul li {
+          cursor: pointer;
+          padding: 6px 10px;
+          border: 1px solid #E2E2E2;
+          border-radius: 5px;
+          margin-left: 15px; }
+        .favorites .content-wrapper .heading .sorting ul li.active {
+          background-color: #FFFFFF;
+          color: #495FEF; }
   .favorites .fav-list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 40px; }
+    margin-bottom: 40px;
+    width: 820px; }
 
 .fav-item {
   position: relative;
-  width: 280px;
+  width: 260px;
   background-color: #FFFFFF;
   border-radius: 8px;
   display: flex;
@@ -323,5 +321,31 @@ h1 {
 .fav-item:first-child,
 .fav-item:nth-child(3n + 1) {
   margin-left: 0; }
+
+@media (min-width: 0) and (max-width: 1023px) {
+  .options {
+    flex-direction: column; }
+    .options .filtering {
+      width: 100%; }
+      .options .filtering .filter-list {
+        justify-content: center;
+        max-width: 100%; }
+    .options .sorting {
+      margin-top: 40px;
+      width: 100%; }
+      .options .sorting ul {
+        justify-content: center; } }
+@media (min-width: 0) and (max-width: 719px) {
+  .usersList {
+    width: 80%; }
+    .usersList .user {
+      max-width: unset;
+      width: 100%; }
+      .usersList .user .image-holder {
+        width: 100%;
+        justify-content: center; }
+        .usersList .user .image-holder img {
+          width: 200px;
+          height: 200px; } }
 
 /*# sourceMappingURL=styles.css.map */

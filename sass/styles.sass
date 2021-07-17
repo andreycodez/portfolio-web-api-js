@@ -153,6 +153,7 @@ h1
       background-color: #495FEF
       color: #FFFFFF
       border-radius: 8px
+      font-weight: bold
       &:hover
         background-color: indianred
     .user-info
@@ -176,12 +177,9 @@ h1
       position: relative
       height: 200px
       width: 200px
+      display: flex
+      align-items: end
       img
-        position: absolute
-        top: 0
-        bottom: 0
-        left: 0
-        right: 0
         width: 100%
 
 .modal
@@ -239,37 +237,38 @@ h1
   right: 0
   background: #495FEF
   transition: all .3s ease-in-out
-  h2
-    display: inline
-    margin-top: 30px
-    color: #FFFFFF
-    margin-bottom: 40px
-  .sorting
-    position: absolute
-    left: 250px
-    top: 20px
-    color: #FFFFFF
-    ul
-      list-style-type: none
+  .content-wrapper
+    .heading
       display: flex
-      li
-        cursor: pointer
-        padding: 6px 10px
-        border: 1px solid #E2E2E2
-        border-radius: 5px
-        margin-left: 15px
-        margin-top: 10px
-      li.active
-        background-color: #FFFFFF
-        color: #495FEF
+      margin-top: 20px
+      align-items: center
+      margin-bottom: 40px
+      h2
+        color: #FFFFFF
+      .sorting
+        color: #FFFFFF
+        margin-left: auto
+        ul
+          list-style-type: none
+          display: flex
+          li
+            cursor: pointer
+            padding: 6px 10px
+            border: 1px solid #E2E2E2
+            border-radius: 5px
+            margin-left: 15px
+          li.active
+            background-color: #FFFFFF
+            color: #495FEF
   .fav-list
     display: flex
     flex-wrap: wrap
     align-items: center
     margin-bottom: 40px
+    width: 820px
 .fav-item
   position: relative
-  width: 280px
+  width: 260px
   background-color: #FFFFFF
   border-radius: 8px
   display: flex
@@ -326,3 +325,31 @@ h1
 .fav-item:nth-child(3n + 1)
   margin-left: 0
 
+
+@media (min-width: 0) AND (max-width: 1023px)
+  .options
+    flex-direction: column
+    .filtering
+      width: 100%
+      .filter-list
+        justify-content: center
+        max-width: 100%
+    .sorting
+      margin-top: 40px
+      width: 100%
+      ul
+        justify-content: center
+
+
+@media (min-width: 0) AND (max-width: 719px)
+  .usersList
+    width: 80%
+    .user
+      max-width: unset
+      width: 100%
+      .image-holder
+        width: 100%
+        justify-content: center
+        img
+          width: 200px
+          height: 200px
