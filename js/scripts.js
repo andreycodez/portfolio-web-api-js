@@ -319,10 +319,18 @@ function generateFav(obj, id) {
     parentItem.appendChild(favItem);
     favsDeleteEventSet();
     deleteNodeFromList(id);
-    updateFavPanelState();
+    updateFavPanelState(null);
     if (settings.sorting.favList != null || settings.sorting.favList != undefined) {
         sortItems('favList', settings.sorting.favList)
     }
+    const closeButton = document.getElementById('favClose');
+    closeButton.addEventListener('click', () => {
+        updateFavPanelState('close')
+    })
+    const closeButtonMob = document.getElementById('favCloseMob');
+    closeButtonMob.addEventListener('click', () => {
+        updateFavPanelState('close')
+    })
 }
 
 function deleteNodeFromList(nodeId) {
@@ -359,13 +367,14 @@ function setAddToFavoritesEventOnUser(obj) {
     }
 }
 
-function updateFavPanelState() {
-    if (document.querySelectorAll('.fav-item').length == 0) {
+function updateFavPanelState(state) {
+    if (document.querySelectorAll('.fav-item').length === 0 || state === 'close') {
         const favPanel = document.getElementById('favPanel');
         favPanel.style.setProperty('bottom','-100%');
         const mainContent = document.querySelector('.main-content');
         mainContent.style.setProperty('margin-bottom', 0);
     } else {
+        const favPanel = document.getElementById('favPanel');
         favPanel.style.setProperty('bottom','0');
         const mainContent = document.querySelector('.main-content');
         mainContent.style.setProperty(

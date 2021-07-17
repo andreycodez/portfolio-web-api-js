@@ -54,7 +54,7 @@ body
   display: flex
   flex-direction: column
   margin: 0 auto
-  max-width: 880px
+  max-width: 1024px
   position: relative
 
 .main-content
@@ -64,7 +64,7 @@ h1
   color: #FFFFFF
 
 .options
-  margin: 30px 10px 0 10px
+  margin: 30px 30px 0 30px
   border-bottom: 1px solid #E2E2E2
   padding-bottom: 20px
   display: flex
@@ -136,17 +136,16 @@ h1
         color: #FFFFFF
 
 .usersList
-  display: flex
-  flex-wrap: wrap
-  margin: 20px auto 0 auto
-  justify-content: center
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  gap: 30px
+  margin: 30px 30px 0 30px
   .user
     display: flex
     flex-direction: column
     border: 1px solid #e9e9e9
     border-radius: 5px
-    max-width: 200px
-    margin: 10px
+    width: 100%
     overflow: hidden
     cursor: pointer
     .fav-button
@@ -178,8 +177,8 @@ h1
         align-items: center
     .image-holder
       position: relative
-      height: 200px
-      width: 200px
+      height: auto
+      width: 100%
       display: flex
       align-items: end
       img
@@ -232,7 +231,6 @@ h1
 .is-hidden
   display: none
 
-
 .favorites
   position: fixed
   bottom: -100%
@@ -240,17 +238,47 @@ h1
   right: 0
   background: #495FEF
   transition: all .3s ease-in-out
+  .close-button-mob
+    display: none
+    cursor: pointer
+    margin-left: auto
+    width: 50px
+    height: 50px
+    //display: flex
+    align-items: center
+    justify-content: center
+    background-color: #FFFFFF
+    color: #495FEF
+    border-radius: 50%
+    svg
+      top: 1px
+      font-size: 18px
   .content-wrapper
+    padding: 0 30px
     .heading
       display: flex
       margin-top: 20px
       align-items: center
       margin-bottom: 40px
+      .close-button
+        cursor: pointer
+        margin-left: auto
+        width: 50px
+        height: 50px
+        display: flex
+        align-items: center
+        justify-content: center
+        background-color: #FFFFFF
+        color: #495FEF
+        border-radius: 50%
+        svg
+          top: 1px
+          font-size: 18px
       h2
         color: #FFFFFF
       .sorting
         color: #FFFFFF
-        margin-left: auto
+        margin-left: 40px
         ul
           list-style-type: none
           display: flex
@@ -264,20 +292,18 @@ h1
             background-color: #FFFFFF
             color: #495FEF
   .fav-list
-    display: flex
-    flex-wrap: wrap
-    align-items: center
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    gap: 30px
     margin-bottom: 40px
-    width: 820px
 .fav-item
   position: relative
-  width: 260px
+  width: 100%
   background-color: #FFFFFF
   border-radius: 8px
   display: flex
   align-items: center
   padding: 0
-  margin: 0 0 20px 20px
   &:hover
     .delete-item
       display: flex
@@ -327,8 +353,21 @@ h1
 .fav-item:nth-child(3n + 1)
   margin-left: 0
 
+@media (min-width: 720px) AND (max-width: 1023px)
+  .favorites .fav-list
+    grid-template-columns: repeat(2, 1fr)
+
+@media (min-width: 0) AND (max-width: 719px)
+  .favorites .fav-list
+    grid-template-columns: repeat(1, 1fr)
+
+  .favorites .content-wrapper .heading .close-button
+    display: none
 
 @media (min-width: 0) AND (max-width: 1023px)
+  .usersList
+    grid-template-columns: repeat(3, 1fr)
+
   .options
     flex-direction: column
     .filtering
@@ -342,9 +381,12 @@ h1
       ul
         justify-content: center
 
+
 @media (min-width: 0) AND (max-width: 719px)
   .usersList
-    width: 80%
+    grid-template-columns: repeat(1, 1fr)
+    width: calc(100% - 60px)
+    min-width: 260px
     .user
       max-width: unset
       width: 100%
@@ -354,6 +396,13 @@ h1
         img
           width: 200px
           height: 200px
+
+  .fav-list
+    grid-template-columns: repeat(1, 1fr)
+
+  .content-wrapper
+    min-width: 260px
+
   .modal
     .modal-box
       width: 100%
@@ -389,3 +438,26 @@ h1
             width: 200px
         .modal-description
           margin-top: 30px
+
+  .favorites
+    height: 100%
+    z-index: 20
+    position: fixed
+    overflow: auto
+    .close-button-mob
+      display: flex
+      position: absolute
+      right: 50px
+      bottom: 30px
+      z-index: 21
+      border: 1px solid #495FEF
+    .close-button
+      display: none
+    .fav-list
+      height: auto !important
+      max-height: calc(100vh - 190px)
+      overflow: scroll
+      .fav-item
+        grid-template-columns: repeat(1, 1fr)
+        .delete-item
+          display: flex
