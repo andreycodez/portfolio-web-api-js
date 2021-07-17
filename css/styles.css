@@ -56,6 +56,9 @@ body {
   max-width: 880px;
   position: relative; }
 
+.main-content {
+  margin-bottom: 40px; }
+
 h1 {
   color: #FFFFFF; }
 
@@ -368,6 +371,8 @@ h1 {
         position: absolute;
         right: 50px;
         bottom: 70px; }
+        .modal .modal-box .modal-header .modal-close svg {
+          top: 1px; }
     .modal .modal-box .modal-body {
       display: flex;
       flex-direction: column;
