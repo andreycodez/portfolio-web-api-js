@@ -5,6 +5,7 @@ let filterLinks = [];
 let sortLinks = [];
 let tempFavourites = {};
 let settings = { filter: {}, sorting: {} };
+let isFavPanelOpened = false;
 
 if (dataSource === 'local') {
     generateContent(dataLocal);
@@ -56,6 +57,10 @@ function generateUsersList(obj) {
         favItem.setAttribute('class', 'fav-button');
         favItem.innerHTML = 'Add To Favs';
         favItem.setAttribute('data-favorite', '');
+        favItem.addEventListener('click', () => {
+            const favCounter = document.querySelector('.fav-icon span')
+            favCounter.innerHTML = +favCounter.innerHTML + 1;
+        })
 
         imageHolder.appendChild(image);
         userInfoHolder.appendChild(nameHolder);
@@ -189,6 +194,12 @@ function setViewOptions() {
             }
         })
     }
+    const favIcon = document.getElementById('favIcon')
+    favIcon.addEventListener('click', () => {
+        if (!isFavPanelOpened) {
+            updateFavPanelState('open')
+        }
+    })
 }
 
 function sortItems(entity, way){
@@ -295,6 +306,10 @@ function generateFav(obj, id) {
     const delItem = document.createElement('div');
     delItem.setAttribute('class','delete-item');
     delItem.setAttribute('data-delete', '');
+    delItem.addEventListener('click', () => {
+        const favCounter = document.querySelector('.fav-icon span')
+        favCounter.innerHTML = favCounter.innerHTML - 1;
+    })
     const delIcon = document.createElement('i');
     delIcon.setAttribute('class','fa fa-times');
     delItem.appendChild(delIcon);
@@ -331,6 +346,8 @@ function generateFav(obj, id) {
     closeButtonMob.addEventListener('click', () => {
         updateFavPanelState('close')
     })
+    const star = document.querySelector('.fav-icon svg')
+    star.setAttribute('data-prefix', 'fas')
 }
 
 function deleteNodeFromList(nodeId) {
@@ -368,11 +385,20 @@ function setAddToFavoritesEventOnUser(obj) {
 }
 
 function updateFavPanelState(state) {
-    if (document.querySelectorAll('.fav-item').length === 0 || state === 'close') {
+    if (document.querySelectorAll('.fav-item').length === 0) {
         const favPanel = document.getElementById('favPanel');
         favPanel.style.setProperty('bottom','-100%');
         const mainContent = document.querySelector('.main-content');
         mainContent.style.setProperty('margin-bottom', '40px');
+        isFavPanelOpened = false;
+        const star = document.querySelector('.fav-icon svg')
+        star.setAttribute('data-prefix', 'far')
+    } else if (state === 'close') {
+        const favPanel = document.getElementById('favPanel');
+        favPanel.style.setProperty('bottom','-100%');
+        const mainContent = document.querySelector('.main-content');
+        mainContent.style.setProperty('margin-bottom', '40px');
+        isFavPanelOpened = false;
     } else {
         const favPanel = document.getElementById('favPanel');
         favPanel.style.setProperty('bottom','0');
@@ -381,5 +407,6 @@ function updateFavPanelState(state) {
             'margin-bottom',
             `${parseInt(window.getComputedStyle(favPanel, null).getPropertyValue('height')) + 50}px`
         );
+        isFavPanelOpened = true;
     }
 }
